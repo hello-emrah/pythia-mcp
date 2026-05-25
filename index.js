@@ -194,7 +194,7 @@ const TOOLS = [
 // ─── Server ───────────────────────────────────────────────────────────────────
 
 const server = new Server(
-  { name: 'openai-images-mcp', version: '1.0.0' },
+  { name: 'pythia-mcp', version: '1.0.0' },
   { capabilities: { tools: {} } }
 );
 

@@ -1,6 +1,14 @@
-# openai-images-mcp
+<p align="center">
+  <img src="assets/logo.png" alt="Pythia" width="240" />
+</p>
 
-An MCP server for OpenAI image generation and editing using the `gpt-image-1` model.
+<h1 align="center">Pythia</h1>
+
+<p align="center">
+  An MCP oracle for OpenAI image generation and editing, powered by <code>gpt-image-1</code>.
+</p>
+
+---
 
 ## Tools
 
@@ -17,8 +25,8 @@ Both tools save the result to disk and return the file path plus metadata.
 ## Install
 
 ```bash
-git clone https://github.com/<your-user>/openai-images-mcp.git
-cd openai-images-mcp
+git clone https://github.com/<your-user>/pythia-mcp.git
+cd pythia-mcp
 npm install
 cp .env.example .env
 # Edit .env and add your OPENAI_API_KEY
@@ -31,9 +39,9 @@ Add an entry to `~/.claude.json` under `mcpServers`:
 ```json
 {
   "mcpServers": {
-    "openai-images": {
+    "pythia": {
       "command": "node",
-      "args": ["/absolute/path/to/openai-images-mcp/index.js"],
+      "args": ["/absolute/path/to/pythia-mcp/index.js"],
       "env": {
         "OPENAI_API_KEY": "sk-...",
         "OPENAI_IMAGE_OUTPUT_DIR": "/absolute/path/to/output/dir"
@@ -43,7 +51,7 @@ Add an entry to `~/.claude.json` under `mcpServers`:
 }
 ```
 
-Restart Claude Code. The `generate_image` and `edit_image` tools will appear.
+Restart Claude Code. The `generate_image` and `edit_image` tools will appear under the `mcp__pythia__*` namespace.
 
 ## Environment variables
 
@@ -82,6 +90,10 @@ Input images must be PNG, JPG, or WebP. Mask is a PNG where transparent pixels m
 ## CLI fallback
 
 A standalone Python CLI (`image-gen.py`) is included for one-shot use without the MCP server. See `IMAGE-GEN-HOWTO.md`.
+
+## Why "Pythia"
+
+Pythia was the Oracle of Delphi, the priestess through whom visions came. The name signals what this tool does: you speak, and an image is given back.
 
 ## License
 

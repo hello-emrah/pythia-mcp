@@ -6,25 +6,34 @@
 
 <p align="center">
   An MCP oracle for the OpenAI multimodal API.<br/>
-  Image, voice, transcription, memory, moderation.
+  Image, voice, transcription, memory, moderation.<br/>
+  <strong>Works with files on disk, not in a browser tab.</strong>
 </p>
 
 ---
 
 The Pythia spoke for Apollo, god of music, poetry, prophecy, and the sun. Her oracular voice was the multimodal interface to a god's mind. This MCP server is the same idea, smaller god. Whatever the OpenAI API can generate, perceive, or judge, Pythia hands back to whatever model is driving Claude Code.
 
+If you have ever dragged the same reference image into ChatGPT five times to iterate, or copied generated assets out of a browser back into your project folder, that friction is the tax this removes. Pythia reads images and audio from your local filesystem and writes the results back to disk. No tabs, no drag-and-drop, no exported JSON to wrangle. The model does the work; your filesystem is the surface.
+
 ## Tools
 
 | Tool | What it does | Default model |
 |---|---|---|
-| `generate_image` | Text to image. Saves to disk. | `gpt-image-2` |
-| `edit_image` | Edits one or more existing images by prompt. Optional mask for inpainting (gpt-image-1). | `gpt-image-2` |
-| `speak` | Text to speech. Saves an audio file. Voice prompting via `instructions`. | `gpt-4o-mini-tts` |
-| `transcribe` | Speech to text from an audio file. Optional language hint, prompt, timestamps, diarization. | `gpt-4o-transcribe` |
-| `embed` | Text to vector(s). Returns inline or writes JSON. | `text-embedding-3-large` |
-| `moderate` | Classifies text and/or image against OpenAI safety categories. | `omni-moderation-latest` |
+| `generate_image` | Text to image. Writes to disk. | `gpt-image-2` |
+| `edit_image` | Edits local image files by prompt. Reads from disk, writes to disk. Optional mask for inpainting (gpt-image-1). | `gpt-image-2` |
+| `speak` | Text to speech. Writes an audio file. Voice prompting via `instructions`. | `gpt-4o-mini-tts` |
+| `transcribe` | Speech to text from a local audio file. Optional language hint, prompt, timestamps, diarization. | `gpt-4o-transcribe` |
+| `embed` | Text to vector(s). Returns inline or writes JSON to disk. | `text-embedding-3-large` |
+| `moderate` | Classifies text or image URL against OpenAI safety categories. | `omni-moderation-latest` |
 
 Every model default is overridable per call and via environment variable, so a new OpenAI model lands and the only thing you change is the default.
+
+### Disk conventions
+
+- **Inputs** for `edit_image` and `transcribe` are absolute or `~`-relative local file paths.
+- **Outputs** for `generate_image`, `edit_image`, `speak`, and optionally `embed` are written to disk. Provide `output_path` per call, or let Pythia drop them in `OPENAI_IMAGE_OUTPUT_DIR` / `OPENAI_AUDIO_OUTPUT_DIR` with a timestamped filename.
+- **`moderate`** is the one exception: OpenAI's moderation endpoint accepts text strings and image URLs, not local image files. If you need to moderate a local image, host it or pass its bytes through another tool first.
 
 ## Requirements
 

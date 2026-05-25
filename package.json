@@ -1,11 +1,11 @@
 {
-  "name": "openai-images-mcp",
+  "name": "pythia-mcp",
   "version": "1.0.0",
-  "description": "MCP server for OpenAI image generation and editing (gpt-image-1).",
+  "description": "Pythia: MCP oracle for OpenAI image generation and editing (gpt-image-1).",
   "type": "module",
   "main": "index.js",
   "bin": {
-    "openai-images-mcp": "./index.js"
+    "pythia-mcp": "./index.js"
   },
   "scripts": {
     "start": "node index.js"

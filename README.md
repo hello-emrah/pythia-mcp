@@ -187,6 +187,12 @@ The visual mark and the tool itself were built deliberately against the visual l
 
 This tool is built for personal use and shared openly. It is not productised, monetised, or instrumented. Use it for your own work or fork it for yours.
 
+## Support
+
+Open-source, shared openly. If this saved you time:
+
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-c46b44?logo=buymeacoffee&logoColor=ffffff&style=for-the-badge)](https://buymeacoffee.com/hello_emrah)
+
 ## License
 
 MIT

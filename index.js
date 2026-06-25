@@ -141,7 +141,7 @@ async function speak({ text, output_path, voice = TTS_VOICE, model = TTS_MODEL, 
 
 // ─── Audio: transcribe (STT) ──────────────────────────────────────────────────
 
-async function transcribe({ audio_path, model = STT_MODEL, language, prompt, response_format = 'json', timestamp_granularities }) {
+async function transcribe({ audio_path, model = STT_MODEL, language, prompt, response_format = 'json', timestamp_granularities, chunking_strategy }) {
   if (!audio_path) throw new Error('audio_path is required.');
   const abs = expandPath(audio_path);
 
@@ -153,6 +153,8 @@ async function transcribe({ audio_path, model = STT_MODEL, language, prompt, res
   if (language) params.language = language;
   if (prompt) params.prompt = prompt;
   if (timestamp_granularities) params.timestamp_granularities = timestamp_granularities;
+  if (chunking_strategy !== undefined) params.chunking_strategy = chunking_strategy;
+  else if (model && model.includes('diarize')) params.chunking_strategy = 'auto';
 
   const result = await openai.audio.transcriptions.create(params);
   return { model, input: abs, ...(typeof result === 'string' ? { text: result } : result) };
@@ -254,6 +256,7 @@ const TOOLS = [
         prompt:                  { type: 'string', description: 'Optional context to improve accuracy.' },
         response_format:         { type: 'string', description: 'json, text, srt, verbose_json, vtt, or diarized_json (model-dependent). Default: json.' },
         timestamp_granularities: { type: 'array', items: { type: 'string' }, description: 'whisper-1 only: ["word"], ["segment"], or both.' },
+        chunking_strategy:       { description: 'Required by diarize models. "auto" (default applied when omitted on a diarize model), or a server_vad config object.' },
       },
       required: ['audio_path'],
     },
